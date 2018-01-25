@@ -318,6 +318,21 @@ Prefab:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 223703188810212680, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114161341446674916, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_ReferenceResolution.x
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 114161341446674916, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_ReferenceResolution.y
+      value: 720
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7d1340af83306214aa7f25c6a3657bfc, type: 2}
   m_IsPrefabParent: 0
