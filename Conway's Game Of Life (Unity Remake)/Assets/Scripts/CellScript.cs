@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Sprites;
 
 public class CellScript : MonoBehaviour
 {
@@ -29,10 +30,15 @@ public class CellScript : MonoBehaviour
 	public CellState nextState;
 
 	public MeshRenderer mRender;
+	public SpriteRenderer sRender;
+
+	public Color aliveColour;
+	public Color deadColour;
 
 	void Awake ()
 	{
 		mRender = GetComponent<MeshRenderer> ();
+		sRender = GetComponent<SpriteRenderer> ();
 	}
 
 	void Start ()
@@ -94,9 +100,11 @@ public class CellScript : MonoBehaviour
 	public void UpdateMaterial ()
 	{
 		if (state == CellState.Alive) {
-			mRender.sharedMaterial = aliveMaterial;
+			//mRender.sharedMaterial = aliveMaterial;
+			sRender.color = aliveColour;
 		} else {
-			mRender.sharedMaterial = deadMaterial;
+			//mRender.sharedMaterial = deadMaterial;
+			sRender.color = deadColour;
 		}
 	}
 

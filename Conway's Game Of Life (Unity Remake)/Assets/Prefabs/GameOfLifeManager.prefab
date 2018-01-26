@@ -53,7 +53,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSizeX: 50
   mapSizeY: 50
-  cellPrefab: {fileID: 114287481007759522, guid: 744c2117ec8a5e84d90f31ea276972f0,
+  cellPrefab: {fileID: 114017851150533302, guid: e297bcae823a99f48a7df808c0e8e9d1,
     type: 2}
   updateInterval: 0.1
   state: 1
+  PlayButton: {fileID: 0}
+  PauseButton: {fileID: 0}
+  StepButton: {fileID: 0}
