@@ -70,6 +70,3 @@ MonoBehaviour:
     type: 2}
   updateInterval: 0.1
   state: 1
-  PlayButton: {fileID: 0}
-  PauseButton: {fileID: 0}
-  StepButton: {fileID: 0}

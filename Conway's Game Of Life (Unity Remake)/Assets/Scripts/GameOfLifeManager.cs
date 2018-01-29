@@ -32,13 +32,19 @@ public class GameOfLifeManager : MonoBehaviour
 
 	public IEnumerator coroutine;
 
-	public GameObject PlayButton;
-	public GameObject PauseButton;
-	public GameObject StepButton;
+	public static GameOfLifeManager instance = null;
 
 	void Awake ()
 	{
 		//Run ();
+
+		if (instance == null) {
+			instance = this;
+		} else if (instance != this) {
+			Destroy (gameObject);
+		}
+
+		DontDestroyOnLoad (gameObject);
 
 		InitGrid (mapSizeX, mapSizeY);
 	}
@@ -53,17 +59,20 @@ public class GameOfLifeManager : MonoBehaviour
 		
 	}
 
-	public void InitGrid (int x, int y)
+	public void RemoveGrid ()
 	{
 		// Checks if there are cells in the grid or not.
 		if (cells != null) {
 			for (int i = 0; i < mapSizeX; i++) {
 				for (int j = 0; j < mapSizeY; j++) {					
-					GameObject.Destroy (cells [i, j].gameObject);
+					SpawnPoolManager.instance.Despawn (cells [i, j].gameObject);
 				}
 			}
 		}
+	}
 
+	public void InitGrid (int x, int y)
+	{
 		cellUpdate = null;
 		applyCellUpdate = null;
 
@@ -84,10 +93,12 @@ public class GameOfLifeManager : MonoBehaviour
 				// Creating a cell into the scene.
 				CellScript c = Instantiate (cellPrefab, new Vector3 ((float)i, (float)j, 0.0f), Quaternion.identity) as CellScript;
 
+				//SpawnPoolManager.instance.Spawn ("CellSprite", new Vector3 ((float)i, (float)j, 0.0f), Quaternion.identity);
+
 				cells [i, j] = c;
 
 				c.InitCell (this, i, j);
-				c.SetRandomState (); // Randomize cell state;
+				//c.SetRandomState (); // Randomize cell state;
 
 				cellUpdate += c.CellUpdate;
 				applyCellUpdate += c.ApplyCellUpdate;
@@ -104,9 +115,11 @@ public class GameOfLifeManager : MonoBehaviour
 
 	public void ResetCells ()
 	{
-		for (int i = 0; i < mapSizeX; i++) {
-			for (int j = 0; j < mapSizeY; j++) {
-				cells [i, j].ClearCell ();
+		if (cells != null) {
+			for (int i = 0; i < mapSizeX; i++) {
+				for (int j = 0; j < mapSizeY; j++) {
+					cells [i, j].ClearCell ();
+				}
 			}
 		}
 	}
@@ -146,10 +159,6 @@ public class GameOfLifeManager : MonoBehaviour
 
 			coroutine = RunCoroutine ();
 			StartCoroutine (coroutine);
-
-			PlayButton.SetActive (false);
-			PauseButton.SetActive (true);
-			StepButton.SetActive (false);
 		}
 	}
 
@@ -159,10 +168,6 @@ public class GameOfLifeManager : MonoBehaviour
 			state = GameState.Stop;
 
 			StopCoroutine (coroutine);
-
-			PlayButton.SetActive (true);
-			PauseButton.SetActive (false);
-			StepButton.SetActive (true);
 		}
 	}
 
@@ -179,6 +184,4 @@ public class GameOfLifeManager : MonoBehaviour
 			yield return new WaitForSeconds (updateInterval);
 		}
 	}
-
-
 }

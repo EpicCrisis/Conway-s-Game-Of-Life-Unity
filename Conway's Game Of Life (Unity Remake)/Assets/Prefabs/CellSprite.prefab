@@ -90,8 +90,6 @@ MonoBehaviour:
   sRender: {fileID: 0}
   aliveColour: {r: 0, g: 0, b: 0, a: 1}
   deadColour: {r: 1, g: 1, b: 1, a: 1}
-  UIListener: {fileID: 223703188810212680, guid: 7d1340af83306214aa7f25c6a3657bfc,
-    type: 2}
 --- !u!212 &212924828180339606
 SpriteRenderer:
   m_ObjectHideFlags: 1
