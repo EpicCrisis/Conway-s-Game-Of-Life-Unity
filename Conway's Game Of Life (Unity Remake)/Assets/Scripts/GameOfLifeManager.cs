@@ -179,4 +179,6 @@ public class GameOfLifeManager : MonoBehaviour
 			yield return new WaitForSeconds (updateInterval);
 		}
 	}
+
+
 }

@@ -36,9 +36,9 @@ public class CameraController : MonoBehaviour
 
 		transform.position = newPos;
 
-		if (Input.GetKey (KeyCode.Equals)) {
+		if (Input.GetAxis ("Mouse ScrollWheel") > 0) {
 			CameraZoom (zoomSpeed);
-		} else if (Input.GetKey (KeyCode.Minus)) {
+		} else if (Input.GetAxis ("Mouse ScrollWheel") < 0) {
 			CameraZoom (-zoomSpeed);
 		}
 	}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Sprites;
+using UnityEngine.UI;
 
 public class CellScript : MonoBehaviour
 {
@@ -35,10 +36,13 @@ public class CellScript : MonoBehaviour
 	public Color aliveColour;
 	public Color deadColour;
 
+	UIHoverListener UIListener;
+
 	void Awake ()
 	{
 		mRender = GetComponent<MeshRenderer> ();
 		sRender = GetComponent<SpriteRenderer> ();
+		UIListener = FindObjectOfType<UIHoverListener> ();
 	}
 
 	void Start ()
@@ -120,5 +124,26 @@ public class CellScript : MonoBehaviour
 		}
 
 		return number;
+	}
+
+	void OnMouseOver ()
+	{
+		if (!UIListener.isUIOverride) {
+
+			//Debug.Log ("Mouse is over this cell");
+
+			if (Input.GetButton ("Fire1")) {
+				//Debug.Log ("LMB this object : " + this.transform);
+
+				state = CellState.Alive;
+				UpdateMaterial ();
+
+			} else if (Input.GetButton ("Fire2")) {
+				//Debug.Log ("RMB this object : " + this.transform);
+
+				state = CellState.Dead;
+				UpdateMaterial ();
+			}
+		}
 	}
 }
