@@ -64,6 +64,7 @@ public class UIManagerScript : MonoBehaviour
 	public void ChangeMapSize (Slider slider)
 	{
 		StopSim ();
+		ClearMap ();
 		GameOfLifeManager.instance.RemoveGrid ();
 
 		GameOfLifeManager.instance.mapSizeX = (int)slider.value * 25;
@@ -76,6 +77,7 @@ public class UIManagerScript : MonoBehaviour
 	{
 		if (GameOfLifeManager.instance.mapSizeX != 75 && GameOfLifeManager.instance.mapSizeY != 75) {
 			StopSim ();
+			ClearMap ();
 			GameOfLifeManager.instance.RemoveGrid ();
 
 			GameOfLifeManager.instance.mapSizeX += 25;
@@ -96,6 +98,7 @@ public class UIManagerScript : MonoBehaviour
 	{
 		if (GameOfLifeManager.instance.mapSizeX != 25 && GameOfLifeManager.instance.mapSizeY != 25) {
 			StopSim ();
+			ClearMap ();
 			GameOfLifeManager.instance.RemoveGrid ();
 
 			GameOfLifeManager.instance.mapSizeX -= 25;
