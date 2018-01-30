@@ -48,11 +48,11 @@ public class SpawnPoolManager : MonoBehaviour
 	}
 
 	// Spawn, or displace an existing hidden object at a particular position or rotation.
-	public void Spawn (string objectName, Vector3 newPosition, Quaternion newRotation)
+	public CellScript Spawn (string objectName, Vector3 newPosition, Quaternion newRotation)
 	{
 		if (!pool.ContainsKey (objectName)) {
 			Debug.LogWarning ("No Pool For " + objectName + " Exists");
-			return;
+			return null;
 		}
 
 		if (pool [objectName].Count > 0) {
@@ -60,9 +60,11 @@ public class SpawnPoolManager : MonoBehaviour
 			go.transform.position = newPosition;
 			go.transform.rotation = newRotation;
 			go.SetActive (true);
+			return go.GetComponent<CellScript> ();
 		} else {
 			Debug.LogWarning ("Reached Pool Limit : " + objectName);
 		}
+		return null;
 	}
 
 	// Despawn.

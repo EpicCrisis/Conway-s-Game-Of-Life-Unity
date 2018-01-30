@@ -43,9 +43,6 @@ public class GameOfLifeManager : MonoBehaviour
 		} else if (instance != this) {
 			Destroy (gameObject);
 		}
-
-		DontDestroyOnLoad (gameObject);
-
 		InitGrid (mapSizeX, mapSizeY);
 	}
 
@@ -66,6 +63,7 @@ public class GameOfLifeManager : MonoBehaviour
 			for (int i = 0; i < mapSizeX; i++) {
 				for (int j = 0; j < mapSizeY; j++) {					
 					SpawnPoolManager.instance.Despawn (cells [i, j].gameObject);
+					//GameObject.Destroy (cells [i, j].gameObject);
 				}
 			}
 		}
@@ -91,9 +89,9 @@ public class GameOfLifeManager : MonoBehaviour
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
 				// Creating a cell into the scene.
-				CellScript c = Instantiate (cellPrefab, new Vector3 ((float)i, (float)j, 0.0f), Quaternion.identity) as CellScript;
+				//CellScript c = Instantiate (cellPrefab, new Vector3 ((float)i, (float)j, 0.0f), Quaternion.identity) as CellScript;
 
-				//SpawnPoolManager.instance.Spawn ("CellSprite", new Vector3 ((float)i, (float)j, 0.0f), Quaternion.identity);
+				CellScript c = SpawnPoolManager.instance.Spawn ("CellSprite", new Vector3 ((float)i, (float)j, 0.0f), Quaternion.identity);
 
 				cells [i, j] = c;
 
