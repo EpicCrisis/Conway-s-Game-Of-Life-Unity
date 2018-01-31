@@ -63,8 +63,8 @@ public class UIManagerScript : MonoBehaviour
 
 	public void ChangeMapSize (Slider slider)
 	{
-		StopSim ();
 		ClearMap ();
+		StopSim ();
 		GameOfLifeManager.instance.RemoveGrid ();
 
 		GameOfLifeManager.instance.mapSizeX = (int)slider.value * 25;
@@ -75,18 +75,24 @@ public class UIManagerScript : MonoBehaviour
 
 	public void IncreaseMapSize ()
 	{
-		if (GameOfLifeManager.instance.mapSizeX != 75 && GameOfLifeManager.instance.mapSizeY != 75) {
-			StopSim ();
+		if (GameOfLifeManager.instance.mapSizeX < GameOfLifeManager.instance.maxMapSizeX
+            && GameOfLifeManager.instance.mapSizeY < GameOfLifeManager.instance.maxMapSizeY) {
+
 			ClearMap ();
+			StopSim ();
 			GameOfLifeManager.instance.RemoveGrid ();
 
 			GameOfLifeManager.instance.mapSizeX += 25;
 			GameOfLifeManager.instance.mapSizeY += 25;
 
 			GameOfLifeManager.instance.InitGrid (GameOfLifeManager.instance.mapSizeX, GameOfLifeManager.instance.mapSizeY);
-		}
+            
+            MoreSizeButton.SetActive(false);
+        }
 
-		if (GameOfLifeManager.instance.mapSizeX == 75 && GameOfLifeManager.instance.mapSizeY == 75) {
+		if (GameOfLifeManager.instance.mapSizeX >= GameOfLifeManager.instance.maxMapSizeX
+            && GameOfLifeManager.instance.mapSizeY >= GameOfLifeManager.instance.maxMapSizeY) {
+
 			MoreSizeButton.SetActive (false);
 		} else {
 			MoreSizeButton.SetActive (true);
@@ -96,9 +102,11 @@ public class UIManagerScript : MonoBehaviour
 
 	public void DecreaseMapSize ()
 	{
-		if (GameOfLifeManager.instance.mapSizeX != 25 && GameOfLifeManager.instance.mapSizeY != 25) {
-			StopSim ();
+		if (GameOfLifeManager.instance.mapSizeX > GameOfLifeManager.instance.minMapSizeX
+            && GameOfLifeManager.instance.mapSizeY > GameOfLifeManager.instance.minMapSizeY) {
+
 			ClearMap ();
+			StopSim ();
 			GameOfLifeManager.instance.RemoveGrid ();
 
 			GameOfLifeManager.instance.mapSizeX -= 25;
@@ -107,7 +115,9 @@ public class UIManagerScript : MonoBehaviour
 			GameOfLifeManager.instance.InitGrid (GameOfLifeManager.instance.mapSizeX, GameOfLifeManager.instance.mapSizeY);
 		}
 
-		if (GameOfLifeManager.instance.mapSizeX == 25 && GameOfLifeManager.instance.mapSizeY == 25) {
+		if (GameOfLifeManager.instance.mapSizeX <= GameOfLifeManager.instance.minMapSizeX
+            && GameOfLifeManager.instance.mapSizeY <= GameOfLifeManager.instance.minMapSizeY) {
+
 			LessSizeButton.SetActive (false);
 		} else {
 			MoreSizeButton.SetActive (true);

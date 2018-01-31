@@ -17,7 +17,10 @@ public class GameOfLifeManager : MonoBehaviour
 	public int mapSizeX = 50;
 	public int mapSizeY = 50;
 
-	public CellScript cellPrefab;
+    [HideInInspector]
+    public int minMapSizeX = 25, minMapSizeY = 25, maxMapSizeX = 100, maxMapSizeY = 100;
+
+    public CellScript cellPrefab;
 
 	public float updateInterval = 0.1f;
 
@@ -34,7 +37,7 @@ public class GameOfLifeManager : MonoBehaviour
 
 	public static GameOfLifeManager instance = null;
 
-	void Awake ()
+    void Awake ()
 	{
 		//Run ();
 
@@ -43,12 +46,11 @@ public class GameOfLifeManager : MonoBehaviour
 		} else if (instance != this) {
 			Destroy (gameObject);
 		}
-		InitGrid (mapSizeX, mapSizeY);
 	}
 
 	void Start ()
 	{
-		
+		InitGrid (mapSizeX, mapSizeY);
 	}
 
 	void Update ()

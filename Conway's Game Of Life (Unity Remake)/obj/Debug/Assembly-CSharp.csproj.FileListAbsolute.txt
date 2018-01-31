@@ -66,3 +66,5 @@ C:\Users\User\Documents\GitHub Files\Game Programming AI\Conway's Game Of Life (
 C:\Users\User\Documents\GitHub Files\Game Programming AI\Conway's Game Of Life (Unity Backup)\Conway's Game Of Life (Unity Remake)\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
 C:\Users\User\Documents\GitHub Files\Game Programming AI\Conway's Game Of Life (Unity Backup)\Conway's Game Of Life (Unity Remake)\Temp\bin\Debug\UnityEditor.VR.xml
 C:\Users\User\Documents\GitHub Files\Game Programming AI\Conway's Game Of Life (Unity Backup)\Conway's Game Of Life (Unity Remake)\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
+C:\Users\User\Documents\GitHub Files\Game Programming AI\Conway's Game Of Life (Unity Backup)\Conway's Game Of Life (Unity Remake)\Temp\bin\Debug\SyntaxTree.VisualStudio.Unity.Bridge.dll
+C:\Users\User\Documents\GitHub Files\Game Programming AI\Conway's Game Of Life (Unity Backup)\Conway's Game Of Life (Unity Remake)\Temp\bin\Debug\SyntaxTree.VisualStudio.Unity.Messaging.dll

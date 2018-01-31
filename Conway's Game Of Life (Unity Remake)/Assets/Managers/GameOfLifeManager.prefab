@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4669320590154944}
   - component: {fileID: 114604084377113330}
   - component: {fileID: 114047341501550994}
+  - component: {fileID: 114995329289415458}
   m_Layer: 0
   m_Name: GameOfLifeManager
   m_TagString: Untagged
@@ -70,3 +71,17 @@ MonoBehaviour:
     type: 2}
   updateInterval: 0.1
   state: 1
+--- !u!114 &114995329289415458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1953428390701422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111e49356569ad74f9653e43d37cb41f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToPool:
+  - {fileID: 1805524611089572, guid: e297bcae823a99f48a7df808c0e8e9d1, type: 2}
+  numberOfObjectsToPool: 10270000
