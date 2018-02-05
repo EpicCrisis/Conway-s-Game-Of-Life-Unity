@@ -29,8 +29,7 @@ public class CellScript : MonoBehaviour
 	public CellState state;
 	// To change the state on next time step.
 	public CellState nextState;
-
-	public MeshRenderer mRender;
+    
 	public SpriteRenderer sRender;
 
 	public Color aliveColour;
@@ -40,7 +39,6 @@ public class CellScript : MonoBehaviour
 
 	void Awake ()
 	{
-		mRender = GetComponent<MeshRenderer> ();
 		sRender = GetComponent<SpriteRenderer> ();
 		UIListener = FindObjectOfType<UIHoverListener> ();
 	}

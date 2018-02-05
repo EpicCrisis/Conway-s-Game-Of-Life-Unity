@@ -23,6 +23,7 @@ public class GameOfLifeManager : MonoBehaviour
     public CellScript cellPrefab;
 
 	public float updateInterval = 0.1f;
+    public int generationNumber = 0;
 
 	// Declaring a matrix for cells, allows neighbour checking!
 	public CellScript[,] cells;
@@ -35,7 +36,10 @@ public class GameOfLifeManager : MonoBehaviour
 
 	public IEnumerator coroutine;
 
-	public static GameOfLifeManager instance = null;
+    public Text GenerationText;
+
+    [Header("Generation Text")]
+    public static GameOfLifeManager instance = null;
 
     void Awake ()
 	{
@@ -100,6 +104,7 @@ public class GameOfLifeManager : MonoBehaviour
 				c.InitCell (this, i, j);
 				//c.SetRandomState (); // Randomize cell state;
 
+                // Referencing the actions to find the functions in the CellScript.
 				cellUpdate += c.CellUpdate;
 				applyCellUpdate += c.ApplyCellUpdate;
 			}
@@ -119,7 +124,11 @@ public class GameOfLifeManager : MonoBehaviour
 			for (int i = 0; i < mapSizeX; i++) {
 				for (int j = 0; j < mapSizeY; j++) {
 					cells [i, j].ClearCell ();
-				}
+
+                    // Updates the generation step only when a cell update occurs.
+                    generationNumber = 0;
+                    GenerationText.text = "Generation: " + generationNumber;
+                }
 			}
 		}
 	}
@@ -175,6 +184,10 @@ public class GameOfLifeManager : MonoBehaviour
 	{
 		cellUpdate ();
 		applyCellUpdate ();
+
+        // Updates the generation step only when a cell update occurs.
+        generationNumber += 1;
+        GenerationText.text = "Generation: " + generationNumber;
 	}
 
 	public IEnumerator RunCoroutine ()

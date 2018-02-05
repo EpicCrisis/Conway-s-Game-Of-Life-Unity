@@ -33,7 +33,7 @@ public class UIManagerScript : MonoBehaviour
 		DontDestroyOnLoad (gameObject);
 	}
 
-	public void StartSim ()
+    public void StartSim ()
 	{
 		GameOfLifeManager.instance.Run ();
 
@@ -56,15 +56,16 @@ public class UIManagerScript : MonoBehaviour
 		GameOfLifeManager.instance.UpdateCells ();
 	}
 
+    // Clear map now automatically stops the simulation.
 	public void ClearMap ()
 	{
+        StopSim();
 		GameOfLifeManager.instance.ResetCells ();
 	}
 
 	public void ChangeMapSize (Slider slider)
 	{
 		ClearMap ();
-		StopSim ();
 		GameOfLifeManager.instance.RemoveGrid ();
 
 		GameOfLifeManager.instance.mapSizeX = (int)slider.value * 25;
@@ -79,7 +80,6 @@ public class UIManagerScript : MonoBehaviour
             && GameOfLifeManager.instance.mapSizeY < GameOfLifeManager.instance.maxMapSizeY) {
 
 			ClearMap ();
-			StopSim ();
 			GameOfLifeManager.instance.RemoveGrid ();
 
 			GameOfLifeManager.instance.mapSizeX += 25;
@@ -106,7 +106,6 @@ public class UIManagerScript : MonoBehaviour
             && GameOfLifeManager.instance.mapSizeY > GameOfLifeManager.instance.minMapSizeY) {
 
 			ClearMap ();
-			StopSim ();
 			GameOfLifeManager.instance.RemoveGrid ();
 
 			GameOfLifeManager.instance.mapSizeX -= 25;

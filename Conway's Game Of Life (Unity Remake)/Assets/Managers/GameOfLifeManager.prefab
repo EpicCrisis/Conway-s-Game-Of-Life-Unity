@@ -67,10 +67,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSizeX: 50
   mapSizeY: 50
+  minMapSizeX: 25
+  minMapSizeY: 25
+  maxMapSizeX: 100
+  maxMapSizeY: 100
   cellPrefab: {fileID: 114017851150533302, guid: e297bcae823a99f48a7df808c0e8e9d1,
     type: 2}
   updateInterval: 0.1
+  generationNumber: 0
   state: 1
+  GenerationText: {fileID: 0}
 --- !u!114 &114995329289415458
 MonoBehaviour:
   m_ObjectHideFlags: 1
