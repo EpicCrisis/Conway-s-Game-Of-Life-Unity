@@ -286,9 +286,79 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114056710414730470, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Time Step: 00'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114212500450617158, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Generation: 00'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114827573508258248, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Map Size: 00x00'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237446684413278, guid: 7d1340af83306214aa7f25c6a3657bfc, type: 2}
+      propertyPath: m_Name
+      value: MapSizeText
+      objectReference: {fileID: 0}
+    - target: {fileID: 1706779244820122, guid: 7d1340af83306214aa7f25c6a3657bfc, type: 2}
+      propertyPath: m_Name
+      value: TimeAdjustText
+      objectReference: {fileID: 0}
+    - target: {fileID: 224134953538979062, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 224245645071025308, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114056710414730470, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114827573508258248, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114536851679451732, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_Value
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114056710414730470, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114827573508258248, guid: 7d1340af83306214aa7f25c6a3657bfc,
+        type: 2}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7d1340af83306214aa7f25c6a3657bfc, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &61298746 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114056710414730470, guid: 7d1340af83306214aa7f25c6a3657bfc,
+    type: 2}
+  m_PrefabInternal: {fileID: 61298745}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &61298747 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114827573508258248, guid: 7d1340af83306214aa7f25c6a3657bfc,
+    type: 2}
+  m_PrefabInternal: {fileID: 61298745}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &725215043 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1276859257722490, guid: 7d1340af83306214aa7f25c6a3657bfc,
@@ -368,6 +438,16 @@ Prefab:
       propertyPath: timeSlider
       value: 
       objectReference: {fileID: 4351917}
+    - target: {fileID: 114184971742257050, guid: c32e3baf4fbdeac4b857e43e52e71ae3,
+        type: 2}
+      propertyPath: mapSizeText
+      value: 
+      objectReference: {fileID: 61298747}
+    - target: {fileID: 114184971742257050, guid: c32e3baf4fbdeac4b857e43e52e71ae3,
+        type: 2}
+      propertyPath: updateIntervalText
+      value: 
+      objectReference: {fileID: 61298746}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c32e3baf4fbdeac4b857e43e52e71ae3, type: 2}
   m_IsPrefabParent: 0
@@ -443,6 +523,16 @@ Prefab:
       propertyPath: GenerationText
       value: 
       objectReference: {fileID: 1009368980}
+    - target: {fileID: 114604084377113330, guid: ba691498714e5ee438754321f04b58ad,
+        type: 2}
+      propertyPath: UpdateIntervalText
+      value: 
+      objectReference: {fileID: 61298746}
+    - target: {fileID: 114604084377113330, guid: ba691498714e5ee438754321f04b58ad,
+        type: 2}
+      propertyPath: MapSizeText
+      value: 
+      objectReference: {fileID: 61298747}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba691498714e5ee438754321f04b58ad, type: 2}
   m_IsPrefabParent: 0

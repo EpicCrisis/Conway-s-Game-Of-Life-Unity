@@ -36,10 +36,10 @@ public class GameOfLifeManager : MonoBehaviour
 
 	public IEnumerator coroutine;
 
-    public Text GenerationText;
-
-    [Header("Generation Text")]
     public static GameOfLifeManager instance = null;
+
+    [Header("===Text To Update Data===")]
+    public Text GenerationText;
 
     void Awake ()
 	{
@@ -55,7 +55,8 @@ public class GameOfLifeManager : MonoBehaviour
 	void Start ()
 	{
 		InitGrid (mapSizeX, mapSizeY);
-	}
+        GenerationText.text = "Generation: " + generationNumber;
+    }
 
 	void Update ()
 	{
@@ -186,7 +187,7 @@ public class GameOfLifeManager : MonoBehaviour
 		applyCellUpdate ();
 
         // Updates the generation step only when a cell update occurs.
-        generationNumber += 1;
+        generationNumber++;
         GenerationText.text = "Generation: " + generationNumber;
 	}
 

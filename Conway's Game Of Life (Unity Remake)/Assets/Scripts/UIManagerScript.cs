@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UIManagerScript : MonoBehaviour
 {
 
-	[Header ("GameObject Adjust")]
+	[Header ("===GameObject Adjust===")]
 	//public GameObject[] UIButtons;
 	public GameObject PlayButton;
 	public GameObject StopButton;
@@ -15,10 +15,14 @@ public class UIManagerScript : MonoBehaviour
 	public GameObject MoreSizeButton;
 	public GameObject LessSizeButton;
 
-	[Header ("Slider Adjust")]
+	[Header ("===Slider Adjust===")]
 	//public Slider[] UISliders;
 	public Slider mapSlider;
 	public Slider timeSlider;
+
+    [Header("===Text Adjust===")]
+    public Text mapSizeText;
+    public Text updateIntervalText;
 
 	public static UIManagerScript instance = null;
 
@@ -32,6 +36,12 @@ public class UIManagerScript : MonoBehaviour
 
 		DontDestroyOnLoad (gameObject);
 	}
+
+    void Start()
+    {
+        mapSizeText.text = "Map Size: " + GameOfLifeManager.instance.mapSizeX + "x" + GameOfLifeManager.instance.mapSizeY;
+        updateIntervalText.text = "Time Step: " + Mathf.Round(GameOfLifeManager.instance.updateInterval * 1000.0f) + "ms";
+    }
 
     public void StartSim ()
 	{
@@ -86,8 +96,8 @@ public class UIManagerScript : MonoBehaviour
 			GameOfLifeManager.instance.mapSizeY += 25;
 
 			GameOfLifeManager.instance.InitGrid (GameOfLifeManager.instance.mapSizeX, GameOfLifeManager.instance.mapSizeY);
-            
-            MoreSizeButton.SetActive(false);
+
+            mapSizeText.text = "Map Size: " + GameOfLifeManager.instance.mapSizeX + "x" + GameOfLifeManager.instance.mapSizeY;
         }
 
 		if (GameOfLifeManager.instance.mapSizeX >= GameOfLifeManager.instance.maxMapSizeX
@@ -112,9 +122,13 @@ public class UIManagerScript : MonoBehaviour
 			GameOfLifeManager.instance.mapSizeY -= 25;
 
 			GameOfLifeManager.instance.InitGrid (GameOfLifeManager.instance.mapSizeX, GameOfLifeManager.instance.mapSizeY);
-		}
 
-		if (GameOfLifeManager.instance.mapSizeX <= GameOfLifeManager.instance.minMapSizeX
+            mapSizeText.text = "Map Size: " + GameOfLifeManager.instance.mapSizeX + "x" + GameOfLifeManager.instance.mapSizeY;
+
+
+        }
+
+        if (GameOfLifeManager.instance.mapSizeX <= GameOfLifeManager.instance.minMapSizeX
             && GameOfLifeManager.instance.mapSizeY <= GameOfLifeManager.instance.minMapSizeY) {
 
 			LessSizeButton.SetActive (false);
@@ -127,5 +141,7 @@ public class UIManagerScript : MonoBehaviour
 	public void ChangeUpdateInterval (Slider slider)
 	{
 		GameOfLifeManager.instance.updateInterval = slider.value;
-	}
+
+        updateIntervalText.text = "Time Step: " + Mathf.Round(GameOfLifeManager.instance.updateInterval * 1000.0f) + "ms";
+    }
 }
