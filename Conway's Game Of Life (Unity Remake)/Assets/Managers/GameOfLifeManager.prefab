@@ -65,12 +65,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49701a9ab8876544b5772d0d833845d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSizeX: 50
-  mapSizeY: 50
+  mapSizeX: 125
+  mapSizeY: 125
   minMapSizeX: 25
   minMapSizeY: 25
-  maxMapSizeX: 100
-  maxMapSizeY: 100
+  maxMapSizeX: 125
+  maxMapSizeY: 125
   cellPrefab: {fileID: 114017851150533302, guid: e297bcae823a99f48a7df808c0e8e9d1,
     type: 2}
   updateInterval: 0.1
@@ -90,4 +90,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsToPool:
   - {fileID: 1805524611089572, guid: e297bcae823a99f48a7df808c0e8e9d1, type: 2}
-  numberOfObjectsToPool: 10270000
+  numberOfObjectsToPool: 093d0000
