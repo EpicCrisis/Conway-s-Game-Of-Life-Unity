@@ -42,9 +42,10 @@ public class SpawnPoolManager : MonoBehaviour
 	
 			pool.Add (objectsToPool [i].name, new Stack<GameObject> ());
 	
-			for (int f = 0; f < numberOfObjectsToPool [i]; f++) {
+			for (int j = 0; j < numberOfObjectsToPool [i]; j++) {
+
 				GameObject go = Instantiate (objectsToPool [i]);
-				go.transform.SetParent (this.transform);
+				go.transform.SetParent (transform);
 				go.name = objectsToPool [i].name;
 				go.gameObject.SetActive (false);
 				//go.GetComponent<SpriteRenderer> ().enabled = false;

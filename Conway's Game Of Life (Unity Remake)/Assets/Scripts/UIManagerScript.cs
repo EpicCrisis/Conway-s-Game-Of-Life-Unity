@@ -124,8 +124,6 @@ public class UIManagerScript : MonoBehaviour
 			GameOfLifeManager.instance.InitGrid (GameOfLifeManager.instance.mapSizeX, GameOfLifeManager.instance.mapSizeY);
 
             mapSizeText.text = "Map Size: " + GameOfLifeManager.instance.mapSizeX + "x" + GameOfLifeManager.instance.mapSizeY;
-
-
         }
 
         if (GameOfLifeManager.instance.mapSizeX <= GameOfLifeManager.instance.minMapSizeX

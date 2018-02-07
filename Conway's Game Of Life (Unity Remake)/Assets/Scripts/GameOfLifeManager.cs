@@ -17,22 +17,27 @@ public class GameOfLifeManager : MonoBehaviour
 	public int mapSizeX = 50;
 	public int mapSizeY = 50;
 
-    [HideInInspector]
-    public int minMapSizeX = 25, minMapSizeY = 25, maxMapSizeX = 100, maxMapSizeY = 100;
-
+    [Header("===Determine Map Size Limit===")]
+    public int minMapSizeX = 25;
+    public int minMapSizeY = 25;
+    public int maxMapSizeX = 150;
+    public int maxMapSizeY = 150;
+    
+    [Header("===Cell Function===")]
     public CellScript cellPrefab;
 
 	public float updateInterval = 0.1f;
     public int generationNumber = 0;
+    float counter;
 
-	// Declaring a matrix for cells, allows neighbour checking!
-	public CellScript[,] cells;
+    // Declaring a matrix for cells, allows neighbour checking!
+    public CellScript[,] cells;
 
 	public GameState state = GameState.Stop;
 
-	// Action is used to update cells.
-	public Action cellUpdate;
-	public Action applyCellUpdate;
+    // Action is used to update cells.
+    Action cellUpdate;
+    Action applyCellUpdate;
 
 	public IEnumerator coroutine;
 
@@ -60,7 +65,7 @@ public class GameOfLifeManager : MonoBehaviour
 
 	void Update ()
 	{
-		
+
 	}
 
 	public void RemoveGrid ()
@@ -103,11 +108,11 @@ public class GameOfLifeManager : MonoBehaviour
 				cells [i, j] = c;
 
 				c.InitCell (this, i, j);
-				//c.SetRandomState (); // Randomize cell state;
+                //c.SetRandomState (); // Randomize cell state;
 
                 // Referencing the actions to find the functions in the CellScript.
-				cellUpdate += c.CellUpdate;
-				applyCellUpdate += c.ApplyCellUpdate;
+                cellUpdate += c.CellUpdate;
+                applyCellUpdate += c.ApplyCellUpdate;
 			}
 		}
 
@@ -163,13 +168,13 @@ public class GameOfLifeManager : MonoBehaviour
 		if (state == GameState.Stop) {
 			state = GameState.Start;
 
-			if (coroutine != null) {
+            if (coroutine != null) {
 				StopCoroutine (coroutine);
 			}
 
-			coroutine = RunCoroutine ();
-			StartCoroutine (coroutine);
-		}
+            coroutine = RunCoroutine ();
+            StartCoroutine (coroutine);
+        }
 	}
 
 	public void Stop ()
@@ -177,9 +182,10 @@ public class GameOfLifeManager : MonoBehaviour
 		if (state == GameState.Start) {
 			state = GameState.Stop;
 
-			StopCoroutine (coroutine);
-		}
-	}
+            StopCoroutine (coroutine);
+            //counter = 0.0f;
+        }
+    }
 
 	public void UpdateCells ()
 	{
@@ -198,4 +204,21 @@ public class GameOfLifeManager : MonoBehaviour
 			yield return new WaitForSeconds (updateInterval);
 		}
 	}
+
+    /*public void RunCellUpdate()
+    {
+        if (state == GameState.Start)
+        {
+            counter += Time.deltaTime;
+            if (counter > updateInterval)
+            {
+                counter = 0.0f;
+                UpdateCells();
+            }
+        }
+        else
+        {
+            return;
+        }
+    }*/
 }
