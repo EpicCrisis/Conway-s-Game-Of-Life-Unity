@@ -28,7 +28,7 @@ public class CellScript : MonoBehaviour
 	// Checks current state.
 	public CellState state;
 	// To change the state on next time step.
-	public CellState nextState;
+	private CellState nextState;
     
 	public SpriteRenderer sRender;
 
@@ -99,7 +99,7 @@ public class CellScript : MonoBehaviour
 	}
 
 	// Changing the material based on cell state.
-	public void UpdateMaterial ()
+	private void UpdateMaterial ()
 	{
 		if (state == CellState.Alive) {
 			//mRender.sharedMaterial = aliveMaterial;
@@ -111,7 +111,7 @@ public class CellScript : MonoBehaviour
 	}
 
 	// Find neighbours that exists and are alive.
-	public int GetAliveCells ()
+	private int GetAliveCells ()
 	{
 		int number = 0;
 

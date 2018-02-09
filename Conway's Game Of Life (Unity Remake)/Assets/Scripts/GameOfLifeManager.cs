@@ -36,10 +36,10 @@ public class GameOfLifeManager : MonoBehaviour
 	public GameState state = GameState.Stop;
 
     // Action is used to update cells.
-    Action cellUpdate;
-    Action applyCellUpdate;
+    private Action cellUpdate;
+    private Action applyCellUpdate;
 
-	public IEnumerator coroutine;
+    private IEnumerator coroutine;
 
     public static GameOfLifeManager instance = null;
 
@@ -65,7 +65,7 @@ public class GameOfLifeManager : MonoBehaviour
 
 	void Update ()
 	{
-
+        //RunCellUpdate();
 	}
 
 	public void RemoveGrid ()
@@ -73,8 +73,8 @@ public class GameOfLifeManager : MonoBehaviour
 		// Checks if there are cells in the grid or not.
 		if (cells != null) {
 			for (int i = 0; i < mapSizeX; i++) {
-				for (int j = 0; j < mapSizeY; j++) {					
-					SpawnPoolManager.instance.Despawn (cells [i, j].gameObject);
+				for (int j = 0; j < mapSizeY; j++) {
+                    SpawnPoolManager.instance.Despawn (cells [i, j].gameObject);
 					//GameObject.Destroy (cells [i, j].gameObject);
 				}
 			}
@@ -197,7 +197,7 @@ public class GameOfLifeManager : MonoBehaviour
         GenerationText.text = "Generation: " + generationNumber;
 	}
 
-	public IEnumerator RunCoroutine ()
+	private IEnumerator RunCoroutine ()
 	{
 		while (state == GameState.Start) {
 			UpdateCells ();

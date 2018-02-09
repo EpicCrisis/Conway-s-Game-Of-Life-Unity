@@ -5,9 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scene/Loader.unity
+  - enabled: 0
+    path: Assets/Scene/LoaderScene.unity
     guid: 52624fb00f9db584cbcbebe85b87e38a
   - enabled: 1
-    path: Assets/Scene/Scene.unity
+    path: Assets/Scene/GameOfLifeScene.unity
     guid: b240fef652381124785dea33df3966a7
