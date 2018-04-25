@@ -41,6 +41,16 @@ public class UIManagerScript : MonoBehaviour
     {
         mapSizeText.text = "Map Size: " + GameOfLifeManager.instance.mapSizeX + "x" + GameOfLifeManager.instance.mapSizeY;
         updateIntervalText.text = "Time Step: " + Mathf.Round(GameOfLifeManager.instance.updateInterval * 1000.0f) + "ms";
+
+		if (GameOfLifeManager.instance.mapSizeX >= GameOfLifeManager.instance.maxMapSizeX
+			&& GameOfLifeManager.instance.mapSizeY >= GameOfLifeManager.instance.maxMapSizeY) {
+
+			MoreSizeButton.SetActive (false);
+		}  else if (GameOfLifeManager.instance.mapSizeX <= GameOfLifeManager.instance.minMapSizeX
+			&& GameOfLifeManager.instance.mapSizeY <= GameOfLifeManager.instance.minMapSizeY) {
+
+			LessSizeButton.SetActive (false);
+		} 
     }
 
     public void StartSim ()
@@ -61,9 +71,9 @@ public class UIManagerScript : MonoBehaviour
 		StepButton.SetActive (true);
 	}
 
-	public void NextStep ()
+	public void NextStep()
 	{
-		GameOfLifeManager.instance.UpdateCells ();
+		GameOfLifeManager.instance.UpdateCells();
 	}
 
     // Clear map now automatically stops the simulation.

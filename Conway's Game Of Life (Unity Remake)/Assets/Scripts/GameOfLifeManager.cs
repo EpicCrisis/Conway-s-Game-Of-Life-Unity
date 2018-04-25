@@ -27,24 +27,18 @@ public class GameOfLifeManager : MonoBehaviour
     public CellScript cellPrefab;
 
 	public float updateInterval = 0.1f;
-    public int generationNumber = 0;
     float counter;
 
     // Declaring a matrix for cells, allows neighbour checking!
     public CellScript[,] cells;
 
-	public GameState state = GameState.Stop;
+	public bool isPlaying = false;
 
-    // Action is used to update cells.
-    private Action cellUpdate;
-    private Action applyCellUpdate;
+	public int generation;
+	public Text genText;
 
-    private IEnumerator coroutine;
-
+	//Singleton
     public static GameOfLifeManager instance = null;
-
-    [Header("===Text To Update Data===")]
-    public Text GenerationText;
 
     void Awake ()
 	{
@@ -60,165 +54,115 @@ public class GameOfLifeManager : MonoBehaviour
 	void Start ()
 	{
 		InitGrid (mapSizeX, mapSizeY);
-        GenerationText.text = "Generation: " + generationNumber;
     }
 
 	void Update ()
 	{
-        //RunCellUpdate();
+		if(isPlaying)
+		{
+			counter += Time.deltaTime;
+			if(counter >= updateInterval)
+			{
+				counter = 0.0f;
+				UpdateCells();
+			}
+		}
+	}
+
+	public void UpdateCells()
+	{
+		for (int i = 0; i < mapSizeX; i++)
+		{
+			for (int j = 0; j < mapSizeY; j++)
+			{
+				cells[i,j].CellUpdate();
+			}
+		}
+		for (int i = 0; i < mapSizeX; i++)
+		{
+			for (int j = 0; j < mapSizeY; j++)
+			{
+				cells[i,j].ApplyCellUpdate();
+			}
+		}
+
+		generation++;
+		genText.text = generation.ToString("000");
 	}
 
 	public void RemoveGrid ()
 	{
 		// Checks if there are cells in the grid or not.
-		if (cells != null) {
-			for (int i = 0; i < mapSizeX; i++) {
-				for (int j = 0; j < mapSizeY; j++) {
-                    SpawnPoolManager.instance.Despawn (cells [i, j].gameObject);
-					//GameObject.Destroy (cells [i, j].gameObject);
-				}
+		if (cells == null) return;
+
+		for (int i = 0; i < mapSizeX; i++)
+		{
+			for (int j = 0; j < mapSizeY; j++)
+			{
+                SpawnPoolManager.instance.Despawn (cells [i, j].gameObject);
 			}
 		}
 	}
 
-	public void InitGrid (int x, int y)
+	public void InitGrid (int newMapSizeX, int newMapSizeY)
 	{
-		cellUpdate = null;
-		applyCellUpdate = null;
+		generation = 0;
+		genText.text = generation.ToString("000");
 
-		coroutine = null;
+		mapSizeX = newMapSizeX;
+		mapSizeY = newMapSizeY;
 
-		mapSizeX = x;
-		mapSizeY = y;
+		//Create cells
+		cells = new CellScript[mapSizeX, mapSizeY];
 
-		CreateCells (mapSizeX, mapSizeY);
-	}
-
-	public void CreateCells (int x, int y)
-	{
-		cells = new CellScript[x, y];
-
-		for (int i = 0; i < x; i++) {
-			for (int j = 0; j < y; j++) {
+		for (int i = 0; i < mapSizeX; i++)
+		{
+			for (int j = 0; j < mapSizeY; j++)
+			{
 				// Creating a cell into the scene.
 				//CellScript c = Instantiate (cellPrefab, new Vector3 ((float)i, (float)j, 0.0f), Quaternion.identity) as CellScript;
 
-				CellScript c = SpawnPoolManager.instance.Spawn ("CellSprite", new Vector3 ((float)i, (float)j, 0.0f), Quaternion.identity);
+				CellScript c = SpawnPoolManager.instance.Spawn ("CellSprite", new Vector3 (i, j, 0.0f), Quaternion.identity);
+
+				c.InitCell (i, j);
 
 				cells [i, j] = c;
-
-				c.InitCell (this, i, j);
-                //c.SetRandomState (); // Randomize cell state;
-
-                // Referencing the actions to find the functions in the CellScript.
-                cellUpdate += c.CellUpdate;
-                applyCellUpdate += c.ApplyCellUpdate;
-			}
-		}
-
-		// Find references for every neighbouring cell.
-		for (int i = 0; i < x; i++) {
-			for (int j = 0; j < y; j++) {
-				cells [i, j].neighbour = GetNeighbours (i, j);
 			}
 		}
 	}
 
 	public void ResetCells ()
 	{
-		if (cells != null) {
-			for (int i = 0; i < mapSizeX; i++) {
-				for (int j = 0; j < mapSizeY; j++) {
-					cells [i, j].ClearCell ();
+		// Checks if there are cells in the grid or not.
+		if (cells == null) return;
 
-                    // Updates the generation step only when a cell update occurs.
-                    generationNumber = 0;
-                    GenerationText.text = "Generation: " + generationNumber;
-                }
-			}
+		generation = 0;
+		genText.text = generation.ToString("000");
+
+		for (int i = 0; i < mapSizeX; i++)
+		{
+			for (int j = 0; j < mapSizeY; j++)
+			{
+				cells [i, j].ClearCell ();
+            }
 		}
-	}
-
-	// Checking adjacent cells with array.
-	public CellScript[] GetNeighbours (int x, int y)
-	{
-		CellScript[] result = new CellScript[8];
-
-		result [0] = cells [x, (y + 1) % mapSizeY]; // top
-
-		result [1] = cells [(x + 1) % mapSizeX, (y + 1) % mapSizeY]; // top right
-
-		result [2] = cells [(x + 1) % mapSizeX, y % mapSizeY]; // right
-
-		result [3] = cells [(x + 1) % mapSizeX, (mapSizeY + y - 1) % mapSizeY]; // bottom right
-
-		result [4] = cells [x % mapSizeX, (mapSizeY + y - 1) % mapSizeY]; // bottom
-
-		result [6] = cells [(mapSizeX + x - 1) % mapSizeX, (mapSizeY + y - 1) % mapSizeY]; // bottom left
-
-		result [7] = cells [(mapSizeX + x - 1) % mapSizeX, y % mapSizeY]; // left
-
-		result [5] = cells [(mapSizeX + x - 1) % mapSizeX, (y + 1) % mapSizeY]; // top left
-
-		return result;
 	}
 
 	public void Run ()
 	{
-		if (state == GameState.Stop) {
-			state = GameState.Start;
-
-            if (coroutine != null) {
-				StopCoroutine (coroutine);
-			}
-
-            coroutine = RunCoroutine ();
-            StartCoroutine (coroutine);
+		if (!isPlaying)
+		{
+			isPlaying = true;
+			counter = 0.0f;
         }
 	}
 
 	public void Stop ()
 	{
-		if (state == GameState.Start) {
-			state = GameState.Stop;
-
-            StopCoroutine (coroutine);
-            //counter = 0.0f;
-        }
-    }
-
-	public void UpdateCells ()
-	{
-		cellUpdate ();
-		applyCellUpdate ();
-
-        // Updates the generation step only when a cell update occurs.
-        generationNumber++;
-        GenerationText.text = "Generation: " + generationNumber;
-	}
-
-	private IEnumerator RunCoroutine ()
-	{
-		while (state == GameState.Start) {
-			UpdateCells ();
-			yield return new WaitForSeconds (updateInterval);
+		if (isPlaying)
+		{
+			isPlaying = false;
+			counter = 0.0f;
 		}
-	}
-
-    /*public void RunCellUpdate()
-    {
-        if (state == GameState.Start)
-        {
-            counter += Time.deltaTime;
-            if (counter > updateInterval)
-            {
-                counter = 0.0f;
-                UpdateCells();
-            }
-        }
-        else
-        {
-            return;
-        }
-    }*/
+    }
 }

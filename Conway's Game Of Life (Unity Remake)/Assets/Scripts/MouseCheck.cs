@@ -4,20 +4,9 @@ using UnityEngine;
 
 public class MouseCheck : MonoBehaviour
 {
-
 	public Camera cam;
 	RaycastHit hit;
 	Ray ray;
-
-	void Start ()
-	{
-		
-	}
-
-	void Update ()
-	{
-		
-	}
 
 	void OnMouseClick ()
 	{

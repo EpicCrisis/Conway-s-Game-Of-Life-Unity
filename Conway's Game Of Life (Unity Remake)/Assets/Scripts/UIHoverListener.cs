@@ -5,8 +5,7 @@ using UnityEngine.EventSystems;
 
 public class UIHoverListener : MonoBehaviour
 {
-
-	public bool isUIOverride { get; private set; }
+	public static bool isUIOverride { get; private set; }
 
 	void Update ()
 	{

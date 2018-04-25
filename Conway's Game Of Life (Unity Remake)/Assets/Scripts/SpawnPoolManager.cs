@@ -38,12 +38,12 @@ public class SpawnPoolManager : MonoBehaviour
 	{
 		pool = new Dictionary<string, Stack<GameObject>> ();
 	
-		for (int i = 0; i < objectsToPool.Count; i++) {
-	
+		for (int i = 0; i < objectsToPool.Count; i++)
+		{
 			pool.Add (objectsToPool [i].name, new Stack<GameObject> ());
 	
-			for (int j = 0; j < numberOfObjectsToPool [i]; j++) {
-
+			for (int j = 0; j < numberOfObjectsToPool [i]; j++)
+			{
 				GameObject go = Instantiate (objectsToPool [i]);
 				go.transform.SetParent (transform);
 				go.name = objectsToPool [i].name;

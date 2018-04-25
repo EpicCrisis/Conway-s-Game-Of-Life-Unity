@@ -14,57 +14,42 @@ public class CellScript : MonoBehaviour
 		Alive
 	}
 
-	public Material aliveMaterial;
-	public Material deadMaterial;
-
-	public GameOfLifeManager gameOfLife;
-
 	public int x;
 	public int y;
-
-	// Array to check neighbours per time step.
-	public CellScript[] neighbour;
 
 	// Checks current state.
 	public CellState state;
 	// To change the state on next time step.
-	private CellState nextState;
+	public CellState nextState;
     
 	public SpriteRenderer sRender;
 
 	public Color aliveColour;
 	public Color deadColour;
 
-	UIHoverListener UIListener;
-
 	void Awake ()
 	{
 		sRender = GetComponent<SpriteRenderer> ();
-		UIListener = FindObjectOfType<UIHoverListener> ();
 	}
 
-	void Start ()
-	{
-		
-	}
-
-	void Update ()
-	{
-		
-	}
-
+	[ContextMenu("Step")]
 	public void CellUpdate ()
 	{
+		int aliveCells = GetAliveNeighbours ();
+
 		nextState = state;
 
-		int aliveCells = GetAliveCells ();
-
-		if (state == CellState.Alive) {
-			if (aliveCells != 2 && aliveCells != 3) {
+		if (state == CellState.Alive)
+		{
+			if (aliveCells != 2 && aliveCells != 3)
+			{
 				nextState = CellState.Dead;
 			}
-		} else {
-			if (aliveCells == 3) {
+		}
+		else
+		{
+			if (aliveCells == 3)
+			{
 				nextState = CellState.Alive;
 			}
 		}
@@ -76,20 +61,10 @@ public class CellScript : MonoBehaviour
 		UpdateMaterial ();
 	}
 
-	public void InitCell (GameOfLifeManager GOS, int x, int y)
+	public void InitCell (int x, int y)
 	{
-		gameOfLife = GOS;
-		transform.parent = GOS.transform;
-
 		this.x = x;
 		this.y = y;
-	}
-
-	// Randomize state for cell.
-	public void SetRandomState ()
-	{
-		state = (Random.Range (0, 2) == 0) ? CellState.Alive : CellState.Dead;
-		UpdateMaterial ();
 	}
 
 	public void ClearCell ()
@@ -102,41 +77,59 @@ public class CellScript : MonoBehaviour
 	private void UpdateMaterial ()
 	{
 		if (state == CellState.Alive) {
-			//mRender.sharedMaterial = aliveMaterial;
 			sRender.color = aliveColour;
 		} else {
-			//mRender.sharedMaterial = deadMaterial;
 			sRender.color = deadColour;
 		}
 	}
 
 	// Find neighbours that exists and are alive.
-	private int GetAliveCells ()
+	private int GetAliveNeighbours ()
 	{
-		int number = 0;
+		int neighbours = 0;
 
-		for (int i = 0; i < neighbour.Length; i++) {
-			if (neighbour [i] != null && neighbour [i].state == CellState.Alive) {
-				number++;
+		for(int i = x - 1; i <= x + 1; i++)
+		{
+			//Skips to the next if x is not in range
+			if(i < 0 || i >= GameOfLifeManager.instance.mapSizeX)
+				continue;
+			
+			for(int j = y - 1; j <= y + 1; j++)
+			{
+				//Skips to the next if y is not in range
+				if(j < 0 || j >= GameOfLifeManager.instance.mapSizeY)
+					continue;
+
+				//Skips to the next when iterated to self
+				if(i == x && j == y)
+					continue;
+				
+				if (GameOfLifeManager.instance.cells [i,j].state == CellState.Alive)
+				{
+					neighbours++;
+				}
 			}
 		}
 
-		return number;
+		return neighbours;
 	}
 
 	void OnMouseOver ()
 	{
-		if (!UIListener.isUIOverride) {
-
+		if (!UIHoverListener.isUIOverride)
+		{
 			//Debug.Log ("Mouse is over this cell");
 
-			if (Input.GetButton ("Fire1")) {
+			if (Input.GetButton ("Fire1"))
+			{
 				//Debug.Log ("LMB this object : " + this.transform);
 
 				state = CellState.Alive;
 				UpdateMaterial ();
 
-			} else if (Input.GetButton ("Fire2")) {
+			}
+			else if (Input.GetButton ("Fire2"))
+			{
 				//Debug.Log ("RMB this object : " + this.transform);
 
 				state = CellState.Dead;
